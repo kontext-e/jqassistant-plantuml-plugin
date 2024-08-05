@@ -1,0 +1,122 @@
+[[section-building-block-view]]
+== Building Block View
+
+This section describes the PlantUML Plugin modules which you will also find in the
+Java package structure.
+
+=== Level 1
+
+
+The following UML package diagram shows the main building blocks of the system and their interdependencies:
+
+["plantuml","MainBuildingBlocks","png"]
+-----
+package scanner {}
+package store {
+    package descriptor {}
+}
+
+scanner --> store
+
+-----
+
+.Description of de.kontext_e.jqassistant.plugin.plantuml packages
+[options="header"]
+|====
+| Name          | Package                                                       | Purpose
+| scanner       | de.kontext_e.jqassistant.plugin.plantuml.scanner              | Scan a text file and create Neo4j nodes for packages and relationships for links.
+| store         | de.kontext_e.jqassistant.plugin.plantuml.store                | contains jQAssistant store interfaces.
+| descriptor    | de.kontext_e.jqassistant.plugin.plantuml.store.descriptor     | contains jQAssistant compliant descriptors for Neo4j nodes.
+|====
+
+
+And here is an example of a component diagram:
+
+["plantuml","Components","png"]
+-----
+skinparam componentStyle uml2
+skinparam component {
+  FontSize 13
+  FontName Arial
+  FontColor #99c0d0
+  BorderColor black
+  BackgroundColor #42788e
+  ArrowFontName Impact
+  ArrowColor #42788e
+  ArrowFontColor #42788e
+
+
+  BackgroundColor<<UI>> Red
+  BorderColor<<UI>> #FF6655
+}
+
+component Restful [
+     <size:20><b><u>Restful</u></b></size>
+
+     RESTful interface
+]
+component JSF_UI <<UI>> <<abstract>> [
+     <size:20><b><u>JSF UI</u></b></size>
+
+     Contains Entities
+]
+
+component Domain [
+    <size:20><b><u>Domain</u></b></size>
+
+    Contains the domain logic,
+    mostly services
+]
+component Entities [
+    <size:20><b><u>Entities</u></b></size>
+
+    Contains Entities,
+    structured in Aggregates
+]
+component Infrastructure [
+     <size:20><b><u>Infrastructure</u></b></size>
+
+    Contains number converters,
+    repositories, …​
+]
+
+
+Domain --> Entities
+Domain --> Infrastructure
+Restful --> Domain
+JSF_UI --> Domain
+-----
+
+.Level 1 Components
+[options="header"]
+|===
+| Name              | Location                          | Purpose
+| Domain            | some.example.project.domain           | Contains the domain logic, mostly services
+| Entities          | some.example.project.entities         | Contains Entities, structured in Aggregates
+| Infrastructure    | some.example.project.infrastructure   | Contains number converters, access to external systems, ...
+| Restful           | some.example.project.rest             | Contains classes for REST interface
+| JSF_UI            | some.example.project.jsf_ui           | Contains classes for JSF UI
+|===
+
+
+==== Known Technical Debt
+
+*Unwanted Dependencies*
+
+During the lifetime many features were added. For some of them, a building block needs information stored in
+a different building block or has to call functionality of another building block - but these new connections
+lead to circular dependencies. To keep the System maintainable, the architecture must be improved:
+resolve dependency circles, move responsibilities etc. Open tasks are:
+
+.Unwantend Module Dependencies
+[options="header"]
+|===
+| From                      | To                    | What should be done
+| de.kontext_e.demo.one     | de.kontext_e.demo.two | Because one makes StatusDTO out of ReceivedMessage from two to hold a list of Sensor stati; Todo: let the ProcessSensorStatusCommand convert the ReceivedMessage into StatusDTO
+|===
+
+
+==== Open Issues
+* only basic package diagrams are tested
+* no support for classes
+* no support for other diagrams
