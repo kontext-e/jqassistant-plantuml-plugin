@@ -1,13 +1,13 @@
 package de.kontext_e.jqassistant.plugin.plantuml.scanner;
 
-import org.junit.Before;
-import org.junit.Test;
 
 import com.buschmais.jqassistant.core.store.api.Store;
 import de.kontext_e.jqassistant.plugin.plantuml.store.descriptor.PlantUmlFileDescriptor;
 import de.kontext_e.jqassistant.plugin.plantuml.store.descriptor.PlantUmlParticipantDescriptor;
 import de.kontext_e.jqassistant.plugin.plantuml.store.descriptor.PlantUmlSequenceDiagramDescriptor;
 import de.kontext_e.jqassistant.plugin.plantuml.store.descriptor.PlantUmlSequenceDiagramMessageDescriptor;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
@@ -25,7 +25,7 @@ public class SequenceDiagramTest {
     private PlantUmlParticipantDescriptor mockPlantUmlParticipantDescriptor;
     private PlantUmlSequenceDiagramMessageDescriptor mockPlantUmlSequenceDiagramMessageDescriptor;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         plantUMLLineParser = new PlantUMLLineParser(mockStore, plantUmlFileDescriptor, ParsingState.ACCEPTING);
         mockDescriptor = mock(PlantUmlSequenceDiagramDescriptor.class);

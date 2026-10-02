@@ -2,8 +2,8 @@ package de.kontext_e.jqassistant.plugin.plantuml.scanner;
 
 import com.buschmais.jqassistant.core.store.api.Store;
 import de.kontext_e.jqassistant.plugin.plantuml.store.descriptor.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
@@ -23,7 +23,7 @@ public class PumlLineParserTest {
     private final Store mockStore = mock(Store.class);
     private final PlantUmlFileDescriptor plantUmlFileDescriptor = mock(PlantUmlFileDescriptor.class);
 
-    @Before
+    @BeforeEach
     public void setUp() {
         plantUMLLineParser = new PlantUMLLineParser(mockStore, plantUmlFileDescriptor, ParsingState.ACCEPTING);
     }
