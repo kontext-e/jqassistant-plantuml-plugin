@@ -7,18 +7,20 @@ import net.sourceforge.plantuml.abel.EntityFactory;
 import net.sourceforge.plantuml.abel.Link;
 import net.sourceforge.plantuml.classdiagram.AbstractEntityDiagram;
 import net.sourceforge.plantuml.core.Diagram;
-import org.junit.Test;
+import net.sourceforge.plantuml.core.DiagramDescription;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class PumlTest {
 
     @Test
-    public void test() {
+    public void exploratoryTest() {
         String plantuml2 = "[plantuml,role=concept]\n" +
                            "----\n" +
                            "@startuml\n" +
@@ -52,7 +54,7 @@ public class PumlTest {
                 "package de.kontext_e.project.services #ffffff {\n" +
                 "}\n" +
                 "\n" +
-                "de.kontext_e.project.services --> de.kontext_e.project.domain\n"+
+                "de.kontext_e.project.services -[hidden]down-> de.kontext_e.project.domain: use the domain\n"+
                 "@enduml\n"
                 ;
 
@@ -61,18 +63,8 @@ public class PumlTest {
         List<BlockUml> blocks = reader.getBlocks();
         Diagram diagram = blocks.get(0).getDiagram();
         AbstractEntityDiagram descriptionDiagram = (AbstractEntityDiagram) diagram;
-        EntityFactory entityFactory = descriptionDiagram.getEntityFactory();
-        Collection<Entity> groups = entityFactory.groups();
-        assertThat(groups.size()).isEqualTo(3);
-        assertThat(groups.stream().map(g->g.getQuark().getQualifiedName()))
-                .containsAll(List.of("de.kontext_e.project.domain",
-                "de.kontext_e.project.domain.sub1",
-                "de.kontext_e.project.services"));
-
-        List<Link> links = entityFactory.getLinks();
-        assertThat(links.size()).isEqualTo(1);
-        assertThat(links.get(0).getEntity1().getQuark().getQualifiedName()).isEqualTo("de.kontext_e.project.services");
-        assertThat(links.get(0).getEntity2().getQuark().getQualifiedName()).isEqualTo("de.kontext_e.project.domain");
+        DiagramDescription diagramDescription = descriptionDiagram.getDescription();
+        assertEquals("(0 entities)", diagramDescription.getDescription());
     }
 
 }

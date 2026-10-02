@@ -128,7 +128,7 @@ class PlantUMLLineParser {
             pucdd.getPlantUmlGroups().forEach(g -> {
                 if(g instanceof PlantUmlPackageDescriptor) {
                     PlantUmlPackageDescriptor pupd = (PlantUmlPackageDescriptor) g;
-                    pupd.getLinkTargets().forEach(lt -> {
+                    pupd.getTarget().forEach(lt -> {
                         if(lt instanceof PlantUmlPackageDescriptor) {
                             pupd.getMayDependOnPackages().add((PlantUmlPackageDescriptor) lt);
                         }
