@@ -131,7 +131,12 @@ public class AbstractEntityDiagramAnalyzer extends AbstractDiagramAnalyzer{
                 continue;
             }
 
-            lhsDescriptor.getLinkTargets().add(rhsDescriptor);
+            final PlantUmlLinkRelationshipDescriptor linkDescriptor = store.create(lhsDescriptor, PlantUmlLinkRelationshipDescriptor.class, rhsDescriptor);
+            linkDescriptor.setHidden(link.isHidden());
+            linkDescriptor.setLabel(link.getLabel().toString());
+            String style = link.getType().getStyle().toString();
+            style = style.substring(0, style.indexOf("(")); // no official accessor for style type :(
+            linkDescriptor.setType(style);
         }
     }
 }

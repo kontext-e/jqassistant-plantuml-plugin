@@ -52,7 +52,7 @@ public class PumlTest {
                 "package de.kontext_e.project.services #ffffff {\n" +
                 "}\n" +
                 "\n" +
-                "de.kontext_e.project.services --> de.kontext_e.project.domain\n"+
+                "de.kontext_e.project.services -[hidden]down-> de.kontext_e.project.domain: use the domain\n"+
                 "@enduml\n"
                 ;
 
@@ -73,6 +73,8 @@ public class PumlTest {
         assertThat(links.size()).isEqualTo(1);
         assertThat(links.get(0).getEntity1().getQuark().getQualifiedName()).isEqualTo("de.kontext_e.project.services");
         assertThat(links.get(0).getEntity2().getQuark().getQualifiedName()).isEqualTo("de.kontext_e.project.domain");
+        assertThat(links.get(0).getLinkArg().getLabel().toString()).isEqualTo("[use the domain]");
+        assertThat(links.get(0).isHidden()).isEqualTo(true);
     }
 
 }

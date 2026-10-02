@@ -9,10 +9,14 @@ import java.util.Set;
 @Label("Element")
 public interface PlantUmlElement extends PlantUmlDescriptor {
 
+    @Relation.Outgoing
+    Set<PlantUmlLinkRelationshipDescriptor> getSource();
+
+    @Relation.Incoming
+    Set<PlantUmlLinkRelationshipDescriptor> getTarget();
+
     @Property("fullName")
     String getFullName();
     void setFullName(String fullName);
 
-    @Relation("LINK_TO")
-    Set<PlantUmlElement> getLinkTargets();
 }
